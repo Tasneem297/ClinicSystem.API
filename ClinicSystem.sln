@@ -1,15 +1,15 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.37628.2
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClinicSystem.API", "ClinicSystem.API.csproj", "{13C2E8E6-558A-455A-91C0-C9C96A1BD44E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClinicSystem.API", "ClinicSystem.API\ClinicSystem.API.csproj", "{13C2E8E6-558A-455A-91C0-C9C96A1BD44E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClinicSystem.Domain", "..\ClinicSystem.Domain\ClinicSystem.Domain.csproj", "{CFEA5B08-F174-4461-9F88-77A0538CB28A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClinicSystem.Domain", "ClinicSystem.Domain\ClinicSystem.Domain.csproj", "{CFEA5B08-F174-4461-9F88-77A0538CB28A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClinicSystem.Application", "..\ClinicSystem.Application\ClinicSystem.Application.csproj", "{CDB4EF5C-BE18-4F9E-8586-94C47DE05827}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClinicSystem.Application", "ClinicSystem.Application\ClinicSystem.Application.csproj", "{CDB4EF5C-BE18-4F9E-8586-94C47DE05827}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClinicSystem.Infrastructure", "..\ClinicSystem.Infrastructure\ClinicSystem.Infrastructure.csproj", "{B43CBBEE-4152-42EF-9E43-C02EE4DE5D76}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClinicSystem.Infrastructure", "ClinicSystem.Infrastructure\ClinicSystem.Infrastructure.csproj", "{B43CBBEE-4152-42EF-9E43-C02EE4DE5D76}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

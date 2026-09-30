@@ -1,0 +1,118 @@
+@ClinicSystem.API_HostAddress = https://localhost:7232
+
+### 1. Register Patient
+# @name registerPatient
+POST {{ClinicSystem.API_HostAddress}}/api/auth/register/patient
+Content-Type: application/json
+
+{
+  "email": "john.doe@example.com",
+  "password": "Password123!",
+  "firstName": "John",
+  "lastName": "Doe",
+  "phone": "+1234567890",
+  "dateOfBirth": "1990-05-15",
+  "gender": 0
+}
+
+### 2. Register Doctor
+# @name registerDoctor
+POST {{ClinicSystem.API_HostAddress}}/api/auth/register/doctor
+Content-Type: application/json
+
+{
+  "email": "dr.smith@example.com",
+  "password": "Password123!",
+  "firstName": "Jane",
+  "lastName": "Smith",
+  "phone": "+1987654321",
+  "specialization": "Cardiology"
+}
+
+### 3. Login as Patient
+# @name patientLogin
+POST {{ClinicSystem.API_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "john.doe@example.com",
+  "password": "Password123!"
+}
+
+### Extract Patient Token (JSONPath $.token)
+@patientToken = {{patientLogin.response.body.$.token}}
+
+### 4. Login as Doctor
+# @name doctorLogin
+POST {{ClinicSystem.API_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "dr.smith@example.com",
+  "password": "Password123!"
+}
+
+### Extract Doctor Token (JSONPath $.token)
+@doctorToken = {{doctorLogin.response.body.$.token}}
+
+### 5. Login as Admin
+# @name adminLogin
+POST {{ClinicSystem.API_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@clinic.com",
+  "password": "Admin123!"
+}
+
+### Extract Admin Token (JSONPath $.token)
+@adminToken = {{adminLogin.response.body.$.token}}
+
+### 6. Doctor Adds Working Schedule (Use doctorId or userId in URL)
+POST {{ClinicSystem.API_HostAddress}}/api/doctors/00000000-0000-0000-0000-000000000001/schedule
+Authorization: Bearer {{doctorToken}}
+Content-Type: application/json
+
+{
+  "dayOfWeek": 1,
+  "startTime": "09:00:00",
+  "endTime": "17:00:00"
+}
+
+### 7. Get Doctor Schedule
+GET {{ClinicSystem.API_HostAddress}}/api/doctors/00000000-0000-0000-0000-000000000001/schedule
+Authorization: Bearer {{patientToken}}
+
+### 8. Get Available Slots
+GET {{ClinicSystem.API_HostAddress}}/api/doctors/00000000-0000-0000-0000-000000000001/available-slots?date=2026-10-05
+Authorization: Bearer {{patientToken}}
+
+### 9. Patient Books Appointment
+POST {{ClinicSystem.API_HostAddress}}/api/appointments
+Authorization: Bearer {{patientToken}}
+Content-Type: application/json
+
+{
+  "patientId": "00000000-0000-0000-0000-000000000002",
+  "doctorId": "00000000-0000-0000-0000-000000000001",
+  "appointmentDate": "2026-10-05T00:00:00Z",
+  "startTime": "10:00:00",
+  "endTime": "10:30:00",
+  "notes": "Routine checkup"
+}
+
+### 10. Get Patient Appointments
+GET {{ClinicSystem.API_HostAddress}}/api/appointments/patient/00000000-0000-0000-0000-000000000002
+Authorization: Bearer {{patientToken}}
+
+### 11. Doctor Confirms Appointment
+PUT {{ClinicSystem.API_HostAddress}}/api/appointments/00000000-0000-0000-0000-000000000003/confirm
+Authorization: Bearer {{doctorToken}}
+
+### 12. Doctor Completes Appointment
+PUT {{ClinicSystem.API_HostAddress}}/api/appointments/00000000-0000-0000-0000-000000000003/complete
+Authorization: Bearer {{doctorToken}}
+
+### 13. Patient Cancels Appointment
+PUT {{ClinicSystem.API_HostAddress}}/api/appointments/00000000-0000-0000-0000-000000000003/cancel
+Authorization: Bearer {{patientToken}}
